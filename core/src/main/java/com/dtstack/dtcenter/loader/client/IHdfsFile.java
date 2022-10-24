@@ -222,7 +222,7 @@ public interface IHdfsFile {
      * @param source 数据源信息
      * @param src 合并路径
      * @param mergePath 目标路径
-     * @param fileFormat 文件类型 ： text、orc、parquet {@link com.dtstack.dtcenter.loader.enums.FileFormat}
+     * @param fileFormat 文件类型 ： text、orc、parquet {@link FileFormat}
      * @param maxCombinedFileSize 合并后的文件大小
      * @param needCombineFileSizeLimit 小文件的最大值，超过此阈值的小文件不会合并
      * @throws Exception

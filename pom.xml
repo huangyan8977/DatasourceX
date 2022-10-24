@@ -72,6 +72,8 @@
         <module>sap_hana</module>
         <module>huawei_hbase</module>
         <module>huawei_kafka</module>
+        <module>gfdfs</module>
+        <module>neo4j</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -18,10 +18,12 @@
 
 package com.dtstack.dtcenter.loader.client;
 
+import com.dtstack.dtcenter.loader.client.gfdfs.GfdfsClientFactory;
 import com.dtstack.dtcenter.loader.client.hbase.HbaseClientFactory;
 import com.dtstack.dtcenter.loader.client.hdfs.HdfsFileClientFactory;
 import com.dtstack.dtcenter.loader.client.kerberos.KerberosClientFactory;
 import com.dtstack.dtcenter.loader.client.mq.KafkaClientFactory;
+import com.dtstack.dtcenter.loader.client.neo4j.Neo4jClientFactory;
 import com.dtstack.dtcenter.loader.client.redis.RedisClientFactory;
 import com.dtstack.dtcenter.loader.client.restful.RestfulClientFactory;
 import com.dtstack.dtcenter.loader.client.sql.DataSourceClientFactory;
@@ -87,6 +89,15 @@ public class ClientCache {
      * redis 客户端缓存
      */
     private static final Map<String, IRedis> REDIS_CLIENT = Maps.newConcurrentMap();
+    /**
+     * GoFdfs 客户端缓存
+     */
+    private static final Map<String, IGfdfs> GFDFS_CLIENT = Maps.newConcurrentMap();
+
+    /**
+     * neo4j 客户端缓存
+     */
+    private static final Map<String,INeo4j> NEO4J_CLIENT = Maps.newConcurrentMap();
 
     protected static String userDir = String.format("%s/pluginLibs/", System.getProperty("user.dir"));
 
@@ -410,6 +421,63 @@ public class ClientCache {
             }
             return iRedis;
         } catch (Throwable e) {
+            throw new ClientAccessException(e);
+        }
+    }
+    /**
+     * 获取 Go-fastdfs Client 客户端
+     *
+     * @param sourceType 数据源类型
+     * @return restful Client 客户端
+     */
+    public static IGfdfs getGfdfs(Integer sourceType) {
+        String pluginName = DataSourceType.getSourceType(sourceType).getPluginName();
+        return getGfdfs(pluginName);
+    }
+
+    private static IGfdfs getGfdfs(String pluginName) {
+        try {
+            IGfdfs iGfdfs = GFDFS_CLIENT.get(pluginName);
+            if (iGfdfs == null) {
+                synchronized (GFDFS_CLIENT) {
+                    iGfdfs = GFDFS_CLIENT.get(pluginName);
+                    if (iGfdfs == null) {
+                        iGfdfs = GfdfsClientFactory.createPluginClass(pluginName);
+                        GFDFS_CLIENT.put(pluginName, iGfdfs);
+                    }
+                }
+            }
+            return iGfdfs;
+        } catch (Throwable e) {
+            throw new ClientAccessException(e);
+        }
+    }
+
+    /**
+     *
+     * @param sourceType 数据源类型
+     * @return Neo4j Client 客户端
+     * @throws ClientAccessException
+     */
+    public static INeo4j getNeo4j(Integer sourceType) throws ClientAccessException{
+        String pluginName = DataSourceType.getSourceType(sourceType).getPluginName();
+        return getNeo4j(pluginName);
+    }
+
+    private static INeo4j getNeo4j(String pluginName) throws ClientAccessException{
+        try {
+            INeo4j iNeo4j = NEO4J_CLIENT.get(pluginName);
+            if (iNeo4j == null) {
+                synchronized (NEO4J_CLIENT){
+                    iNeo4j = NEO4J_CLIENT.get(pluginName);
+                    if (iNeo4j == null) {
+                        iNeo4j = Neo4jClientFactory.createPluginClass(pluginName);
+                        NEO4J_CLIENT.put(pluginName, iNeo4j);
+                    }
+                }
+            }
+            return iNeo4j;
+        }catch(Throwable e){
             throw new ClientAccessException(e);
         }
     }

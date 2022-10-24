@@ -45,7 +45,7 @@ public class HashCacheConnectionKey {
             new DtThreadFactory("hashCacheConnectionKey"));
 
     static {
-        SCHEDULED_THREADPOOL_EXECUTOR.scheduleAtFixedRate(new HashCacheConnectionKey.CacheTimerTask(), 0, 10,
+        SCHEDULED_THREADPOOL_EXECUTOR.scheduleAtFixedRate(new CacheTimerTask(), 0, 10,
                 TimeUnit.SECONDS);
     }
 

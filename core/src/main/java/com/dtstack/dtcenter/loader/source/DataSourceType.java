@@ -97,6 +97,9 @@ public enum DataSourceType {
     SOLR(53, 109, "Solr", "solr"),
     //FIXME 临时增加，适配gateway上线，排除hadoop和hbase依赖，下版本删除
     HBASE_GATEWAY(99, 109, "HBase1.x", "hbase_gateway"),
+    //
+    NEO4J(100,110, "NEO4J", "neo4j"),
+    GFDFS(101,111,"GFDFS","gfdfs"),
 
     // others
     KAFKA_2X(37, 120, "Kafka2.x", "kafka"),
@@ -122,6 +125,7 @@ public enum DataSourceType {
     HIVE3_CDP(65, 140, "Hive3_CDP", "hive3_cdp"),
     HUAWEI_KAFKA(70, 143, "HUAWEI_KAFKA", "huawei_kafka"),
     HUAWEI_HBASE(71, 144, "HUAWEI_HBASE", "huawei_hbase"),
+
     ;
 
     DataSourceType(int val, int order, String name, String pluginName) {
