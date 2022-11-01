@@ -67,4 +67,12 @@ public class GfdfsClientSpecial implements IGfdfs {
         return result;
     }
 
+    @Override
+    public String uploadInputStreamToGfdfs(ISourceDTO sourceDTO, byte[] bytes, String fullFileName) {
+        GfdfsSourceDTO gfdfsSourceDTO = (GfdfsSourceDTO)sourceDTO;
+        String result = GfdfsUtil.uploadInputStreamToGfdfs(gfdfsSourceDTO, bytes, fullFileName,gfdfsSourceDTO.getScene());
+        return result;
+    }
+
+
 }

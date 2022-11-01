@@ -1,20 +1,20 @@
-package com.dtstack.dtcenter.loader.client.neo4j;
+package com.dtstack.dtcenter.loader.client.neo4j40;
 
 import com.dtstack.dtcenter.loader.ClassLoaderCallBackMethod;
-import com.dtstack.dtcenter.loader.client.INeo4j;
+import com.dtstack.dtcenter.loader.client.INeo4j40;
 import com.dtstack.dtcenter.loader.dto.source.ISourceDTO;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * @author Yi Dong
- * @create 2022-10-13-15:12
+ * @author wlq
+ * @create 2022-10-31 16:03
  */
-public class Neo4jProxy implements INeo4j {
-    private INeo4j targetClient;
+public class Neo4j40Proxy implements INeo4j40 {
+    private INeo4j40 targetClient = null;
 
-    public Neo4jProxy(INeo4j targetClient) {
+    public Neo4j40Proxy(INeo4j40 targetClient) {
         this.targetClient = targetClient;
     }
 

@@ -35,7 +35,7 @@ public class Neo4jUtils {
         try {
             Session session = session(iSource);
             if (session.isOpen())
-            check = true;
+                check = true;
             //关闭会话
             close();
         }catch (Exception e){
@@ -66,10 +66,10 @@ public class Neo4jUtils {
         }
     }
 
-    public static StatementResult execute(ISourceDTO iSource, String str){
-        StatementResult run = null;
+    public static List<Map<String, Object>> execute(ISourceDTO iSource, String str){
+        List<Map<String, Object>> run = null;
         try {
-            run = session(iSource).run(str);
+            run = session(iSource).run(str).list(Record::asMap);
         } catch(Exception e) {
             e.printStackTrace();
         } finally {
@@ -78,10 +78,10 @@ public class Neo4jUtils {
         return run;
     }
 
-    public static StatementResult execute(ISourceDTO iSource, String str, Object... objs){
-        StatementResult run = null;
+    public static List<Map<String, Object>> execute(ISourceDTO iSource, String str, Object... objs){
+        List<Map<String, Object>> run = null;
         try {
-            run = session(iSource).run(format(str, objs));
+            run = session(iSource).run(format(str, objs)).list(Record::asMap);
 //            System.out.println(format(str, objs));
         } catch(Exception e) {
             e.printStackTrace();
@@ -106,12 +106,12 @@ public class Neo4jUtils {
      * @param result
      * @return
      */
-    public static List<Node> getNodes(StatementResult result){
+    public static List<Node> getNodes(List<Map<String, Object>> result){
         List<Node> list = new ArrayList<Node>();
         Node node;
-        while(result.hasNext()){
+        while(result.iterator().hasNext()){
             node = new Node();
-            Record record = result.next();
+            Record record = (Record) result.iterator().next();
             List<Pair<String, Value>> fields = record.fields();
 
             Pair<String, Value> pair = fields.get(0);
@@ -138,7 +138,7 @@ public class Neo4jUtils {
      * @param result
      * @return
      */
-    public static Node getNode(StatementResult result){
+    public static Node getNode(List<Map<String, Object>> result){
         List<Node> nodes = getNodes(result);
         return nodes.size() == 0 ? null : nodes.get(0);
     }
@@ -167,12 +167,12 @@ public class Neo4jUtils {
      * @param result
      * @return
      */
-    public static List<Rela> getRelas(StatementResult result){
+    public static List<Rela> getRelas(List<Map<String, Object>> result){
         List<Rela> list = new ArrayList<>();
         Rela rela;
-        while(result.hasNext()){
+        while(result.iterator().hasNext()){
             rela = new Rela();
-            Record record = result.next();
+            Record record = (Record) result.iterator().next();
             List<Pair<String, Value>> fields = record.fields();
             Pair<String, Value> pair = fields.get(0);
             Relationship asRela = pair.value().asRelationship();

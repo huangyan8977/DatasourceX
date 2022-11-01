@@ -32,7 +32,7 @@ public class BaseTest {
     @BeforeClass
     public static void beforeTest() {
         String userDir = ClientCache.getUserDir();
-        String coreDir = userDir.replace("/test/", "/core/");
+        String coreDir = userDir.replace("test", "core");
         ClientCache.setUserDir(coreDir);
     }
 }

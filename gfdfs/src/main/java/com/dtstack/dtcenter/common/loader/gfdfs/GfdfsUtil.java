@@ -1,5 +1,6 @@
 package com.dtstack.dtcenter.common.loader.gfdfs;
 
+import cn.hutool.core.io.resource.InputStreamResource;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSONObject;
@@ -8,6 +9,7 @@ import com.dtstack.dtcenter.loader.dto.source.GfdfsSourceDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -74,7 +76,6 @@ public class GfdfsUtil {
         }
         JSONObject jsonObject = JSONObject.parseObject(result);
         if (jsonObject.getString("status").equals("ok")) {
-            System.out.println(jsonObject.toJSONString());
             return Boolean.TRUE;
         }
         return Boolean.FALSE;
@@ -170,5 +171,20 @@ public class GfdfsUtil {
         return result;
     }
 
-
+    /**
+     * 流式上传文件
+     * @param gfdfsSourceDTO
+     * @return
+     */
+    public static String uploadInputStreamToGfdfs(GfdfsSourceDTO gfdfsSourceDTO, byte[] bytes, String fullFileName,String scene) {
+        InputStreamResource isr = new InputStreamResource(new ByteArrayInputStream(bytes),fullFileName);
+        HashMap<String, Object> paramMap = new HashMap<>();
+        paramMap.put("file", isr);
+        paramMap.put("output","json");
+        paramMap.put("scene",scene);
+        //上传
+        String uploadUrl = "http://"+gfdfsSourceDTO.getIp()+":"+gfdfsSourceDTO.getPort()+"/"+gfdfsSourceDTO.getGroup() + FILE_UPLOAD_URL;
+        String result= HttpUtil.post(uploadUrl, paramMap);
+        return result;
+    }
 }

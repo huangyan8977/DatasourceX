@@ -24,6 +24,7 @@ import com.dtstack.dtcenter.loader.client.hdfs.HdfsFileClientFactory;
 import com.dtstack.dtcenter.loader.client.kerberos.KerberosClientFactory;
 import com.dtstack.dtcenter.loader.client.mq.KafkaClientFactory;
 import com.dtstack.dtcenter.loader.client.neo4j.Neo4jClientFactory;
+import com.dtstack.dtcenter.loader.client.neo4j40.Neo4j40ClientFactory;
 import com.dtstack.dtcenter.loader.client.redis.RedisClientFactory;
 import com.dtstack.dtcenter.loader.client.restful.RestfulClientFactory;
 import com.dtstack.dtcenter.loader.client.sql.DataSourceClientFactory;
@@ -98,6 +99,10 @@ public class ClientCache {
      * neo4j 客户端缓存
      */
     private static final Map<String,INeo4j> NEO4J_CLIENT = Maps.newConcurrentMap();
+    /**
+     * neo4j4.0+ 客户端缓存
+     */
+    private static final Map<String,INeo4j40> NEO4J40_CLIENT = Maps.newConcurrentMap();
 
     protected static String userDir = String.format("%s/pluginLibs/", System.getProperty("user.dir"));
 
@@ -477,6 +482,34 @@ public class ClientCache {
                 }
             }
             return iNeo4j;
+        }catch(Throwable e){
+            throw new ClientAccessException(e);
+        }
+    }
+    /**
+     *
+     * @param sourceType 数据源类型
+     * @return Neo4j4.0+ Client 客户端
+     * @throws ClientAccessException
+     */
+    public static INeo4j40 getNeo4j40(Integer sourceType) throws ClientAccessException{
+        String pluginName = DataSourceType.getSourceType(sourceType).getPluginName();
+        return getNeo4j40(pluginName);
+    }
+
+    private static INeo4j40 getNeo4j40(String pluginName) throws ClientAccessException{
+        try {
+            INeo4j40 iNeo4j40 = NEO4J40_CLIENT.get(pluginName);
+            if (iNeo4j40 == null) {
+                synchronized (NEO4J40_CLIENT){
+                    iNeo4j40 = NEO4J40_CLIENT.get(pluginName);
+                    if (iNeo4j40 == null) {
+                        iNeo4j40 = Neo4j40ClientFactory.createPluginClass(pluginName);
+                        NEO4J40_CLIENT.put(pluginName, iNeo4j40);
+                    }
+                }
+            }
+            return iNeo4j40;
         }catch(Throwable e){
             throw new ClientAccessException(e);
         }

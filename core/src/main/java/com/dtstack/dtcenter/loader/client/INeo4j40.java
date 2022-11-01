@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Yi Dong
- * @create 2022-10-13-14:29
+ * @author wlq
+ * @create 2022-10-31 16:04
  */
-public interface INeo4j {
+public interface INeo4j40 {
 
     /**
      * 校验 连接

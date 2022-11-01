@@ -50,9 +50,10 @@
 | REDIS                       | [doc](docs/nosql/redis.md)              |
 | HBASE(hbase1.x、2.x版本)     | [doc](docs/nosql/hbase.md)               |
 | ES(ES6、ES7版本)             | [doc](docs/nosql/es.md)                  |
-| SOLR(SOLR7.4版本)             | [doc](docs/nosql/solr.md)                  |
+| SOLR(SOLR7.4版本)            | [doc](docs/nosql/solr.md)                  |
 | MONGODB                     | [doc](docs/nosql/mongodb.md)             |
 | HBASE                       | [doc](docs/nosql/hbase.md)               |
+| Neo4j(3.x、4.x版本)          | [doc](docs/nosql/neo4j.md)
 
 ### 2.3 文件系统
 
@@ -62,7 +63,7 @@
 | S3(此为中国移动版本)           | [doc](docs/fs/s3.md)                     |
 | AWS_S3                      | [doc](docs/fs/aws_s3.md)                 |
 | FTP                         | [doc](docs/fs/ftp.md)                    |
-
+| Go-FastDFS                  | [doc](docs/fs/gfdfs.md)                 |
 ### 2.4 消息队列
 
 | Database Type               | Client doc                                   |

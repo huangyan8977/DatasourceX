@@ -74,6 +74,7 @@
         <module>huawei_kafka</module>
         <module>gfdfs</module>
         <module>neo4j</module>
+        <module>neo4j40</module>
     </modules>
     <packaging>pom</packaging>
 

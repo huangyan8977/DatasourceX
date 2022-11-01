@@ -98,8 +98,10 @@ public enum DataSourceType {
     //FIXME 临时增加，适配gateway上线，排除hadoop和hbase依赖，下版本删除
     HBASE_GATEWAY(99, 109, "HBase1.x", "hbase_gateway"),
     //
-    NEO4J(100,110, "NEO4J", "neo4j"),
-    GFDFS(101,111,"GFDFS","gfdfs"),
+    NEO4J(101,111, "NEO4J", "neo4j"),
+    NEO4J40(100,110, "NEO4J40", "neo4j40"),
+    GFDFS(102,112,"GFDFS","gfdfs"),
+
 
     // others
     KAFKA_2X(37, 120, "Kafka2.x", "kafka"),

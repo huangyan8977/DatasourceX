@@ -65,4 +65,10 @@ public class GfdfsProxy implements IGfdfs {
         return ClassLoaderCallBackMethod.callbackAndReset(() -> targetClient.getFileStat(sourceDTO),
                 targetClient.getClass().getClassLoader());
     }
+
+    @Override
+    public String uploadInputStreamToGfdfs(ISourceDTO sourceDTO, byte[] bytes, String fullFileName) {
+        return ClassLoaderCallBackMethod.callbackAndReset(() -> targetClient.uploadInputStreamToGfdfs(sourceDTO, bytes, fullFileName),
+                targetClient.getClass().getClassLoader());
+    }
 }

@@ -73,4 +73,13 @@ public interface IGfdfs {
      * @throws Exception
      */
     String getFileStat(ISourceDTO sourceDTO);
+
+    /**
+     * 上传字节流文件到 Gfdfs
+     * @param sourceDTO
+     * @param bytes
+     * @param fullFileName
+     * @return
+     */
+    String uploadInputStreamToGfdfs(ISourceDTO sourceDTO, byte[] bytes, String fullFileName);
 }
