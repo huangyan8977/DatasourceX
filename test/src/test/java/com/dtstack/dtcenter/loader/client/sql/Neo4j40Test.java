@@ -1,9 +1,11 @@
-package com.dtstack.dtcenter.loader.client;
+package com.dtstack.dtcenter.loader.client.sql;
 
-import com.dtstack.dtcenter.common.loader.neo4j40.Neo4j40ClientSpecial;
-import com.dtstack.dtcenter.common.loader.neo4j40.Neo4j40Client;
+import com.dtstack.dtcenter.loader.client.ClientCache;
+import com.dtstack.dtcenter.loader.client.IClient;
+import com.dtstack.dtcenter.loader.client.INeo4j40;
 import com.dtstack.dtcenter.loader.dto.source.Neo4j40SourceDTO;
 import com.dtstack.dtcenter.loader.source.DataSourceType;
+import com.dtstack.dtcenter.loader.client.BaseTest;
 import com.google.gson.Gson;
 import org.junit.Test;
 

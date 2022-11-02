@@ -1,20 +1,19 @@
-package com.dtstack.dtcenter.loader.client;
+package com.dtstack.dtcenter.loader.client.sql;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.io.file.FileNameUtil;
-import cn.hutool.core.io.resource.InputStreamResource;
-import com.dtstack.dtcenter.common.loader.gfdfs.GfdfsClientSpecial;
+import com.dtstack.dtcenter.loader.client.ClientCache;
+import com.dtstack.dtcenter.loader.client.IClient;
+import com.dtstack.dtcenter.loader.client.IGfdfs;
 import com.dtstack.dtcenter.loader.dto.source.GfdfsSourceDTO;
 import com.dtstack.dtcenter.loader.exception.DtLoaderException;
 import com.dtstack.dtcenter.loader.source.DataSourceType;
+import com.dtstack.dtcenter.loader.client.BaseTest;
 import org.junit.Test;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.nio.charset.StandardCharsets;
 
 /**
  * @author wlq

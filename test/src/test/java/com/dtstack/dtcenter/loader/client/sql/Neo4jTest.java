@@ -1,4 +1,4 @@
-package com.dtstack.dtcenter.loader.client;
+package com.dtstack.dtcenter.loader.client.sql;
 
 import com.dtstack.dtcenter.loader.client.BaseTest;
 import com.dtstack.dtcenter.loader.client.ClientCache;
